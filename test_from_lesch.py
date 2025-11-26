@@ -2,12 +2,18 @@ import re
 from datetime import datetime, timedelta
 import requests
 import urllib3
+import os
 
 urllib3.disable_warnings()
 
 # Variables
-target_location = "Hellbühl" # rotkreuz
-walking_time = timedelta(minutes=5) # 7
+user = os.getlogin()
+if user == "carcane":
+    target_location = "Rotkreuz" # hellbühl
+    walking_time = timedelta(minutes=7) # 5
+elif user == "schmidle":
+    target_location = "Hellbühl" # rotkreuz
+    walking_time = timedelta(minutes=5) # 7
 
 
 # sTylyling
@@ -198,9 +204,10 @@ numbers_art = [
 ]
 print(end_time.strftime("%H%M"))
 x = re.findall("\d", end_time.strftime("%H%M"))
-
-for i in range(11):
-    for digit in x:
-        digit = int(digit)
-        print(numbers_art[digit][i], end="")
-    print()
+if user == "schmidle":
+    print("\033[0;33m")
+    for i in range(11):
+        for digit in x:
+            digit = int(digit)
+            print(numbers_art[digit][i], end="")
+        print()
