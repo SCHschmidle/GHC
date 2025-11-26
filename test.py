@@ -57,4 +57,3 @@ print("Nächste Abfahrten ab Buchrain:")
 for verbindung in data["connections"]:
     abfahrt = datetime.fromisoformat(verbindung["from"]["departure"])
     print(f"  {abfahrt.strftime('%H:%M')} Uhr")
-    print(data)
