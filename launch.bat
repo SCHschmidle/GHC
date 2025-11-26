@@ -1,4 +1,3 @@
 @echo off
-cd C:\temp
-python test.py
+python test_from_lesch.py
 pause

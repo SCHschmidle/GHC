@@ -2,6 +2,10 @@ import re
 from datetime import datetime, timedelta
 import requests
 
+# Variables
+target_location = "Hellbühl" # rotkreuz
+
+
 # sTylyling
 ascii_art=r"""
   _______   ______      __    __    ______    ___  ___   _______      ______     ___       __        ______ 
