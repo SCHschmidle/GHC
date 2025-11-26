@@ -1,4 +1,4 @@
 @echo off
-cd C:\Users\path\to\your\project
-py test.py
+cd C:\temp
+python test.py
 pause
