@@ -7,8 +7,13 @@ import os
 urllib3.disable_warnings()
 
 # Variables
-target_location = "Hellbühl" # rotkreuz
-walking_time = timedelta(minutes=5) # 7
+user = os.getlogin()
+if user == "carcane":
+    target_location = "Rotkreuz" # hellbühl
+    walking_time = timedelta(minutes=7) # 5
+elif user == "schmidle":
+    target_location = "Hellbühl" # rotkreuz
+    walking_time = timedelta(minutes=5) # 7
 
 
 # sTylyling
@@ -27,7 +32,7 @@ ascii_art=r"""
 print("\033[0;34m" + ascii_art + "\033[0m")
 
 print("------------------------------------------------------------------------------------------------------------------ \n \n")
-user = os.getlogin()
+
 text = input("Gib mir deine TimeTool Zeiten: ")
 print()
 
