@@ -29,6 +29,6 @@ py -m pip install requests
 python test.py
 ```
 ## 🤝 Contributors
-carnevio (Nevio Carcanigiu)
+[carnevio (Nevio Carcanigiu)](https://github.com/carnevio)
 
-SCHschmidle
+[SCHschmidle](https://github.com/SCHschmidle)

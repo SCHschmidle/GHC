@@ -203,7 +203,7 @@ numbers_art = [
     ]
 ]
 print(end_time.strftime("%H%M"))
-x = re.findall("\d", end_time.strftime("%H%M"))
+x = re.findall(r"\d", end_time.strftime("%H%M"))
 if user == "schmidle":
     print("\033[0;33m")
     for i in range(11):
