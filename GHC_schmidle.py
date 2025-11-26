@@ -11,7 +11,7 @@ user = os.getlogin()
 if user == "carcane":
     target_location = "Rotkreuz" # hellbühl
     walking_time = timedelta(minutes=7) # 5
-elif user == "schmidle":
+elif user == "schmidle" or user == "albissre":
     target_location = "Hellbühl" # rotkreuz
     walking_time = timedelta(minutes=5) # 7
 
