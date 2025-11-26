@@ -1,9 +1,13 @@
 import re
 from datetime import datetime, timedelta
 import requests
+import urllib3
+
+urllib3.disable_warnings()
 
 # Variables
 target_location = "Hellbühl" # rotkreuz
+walking_time = timedelta(minutes=5) # 7
 
 
 # sTylyling
@@ -50,7 +54,7 @@ if (t1-t2<timedelta(minutes=30)):
 end_time = t1 + target - differenz
 print(f"Du musst bis \033[31m{end_time.time()}\033[0m arbeiten")
 
-r = requests.get(f"https://transport.opendata.ch/v1/connections?from=Buchrain&to=Hellbühl&time={(end_time + timedelta(minutes=5)).strftime('%H:%M')}&limit=4", verify=False)
+r = requests.get(f"https://transport.opendata.ch/v1/connections?from=Buchrain&to=Hellbühl&time={(end_time + walking_time).strftime('%H:%M')}&limit=4", verify=False)
 data = r.json()
 print()
 print("Nächste Abfahrten ab Buchrain:")
