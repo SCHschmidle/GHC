@@ -1,3 +1,3 @@
 @echo off
-python test_from_lesch.py
+python GHC_Lesch.py
 pause
