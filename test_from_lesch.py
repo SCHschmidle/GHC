@@ -2,6 +2,7 @@ import re
 from datetime import datetime, timedelta
 import requests
 import urllib3
+import os
 
 urllib3.disable_warnings()
 
@@ -26,7 +27,7 @@ ascii_art=r"""
 print("\033[0;34m" + ascii_art + "\033[0m")
 
 print("------------------------------------------------------------------------------------------------------------------ \n \n")
-
+user = os.getlogin()
 text = input("Gib mir deine TimeTool Zeiten: ")
 print()
 
@@ -198,9 +199,10 @@ numbers_art = [
 ]
 print(end_time.strftime("%H%M"))
 x = re.findall("\d", end_time.strftime("%H%M"))
-
-for i in range(11):
-    for digit in x:
-        digit = int(digit)
-        print(numbers_art[digit][i], end="")
-    print()
+if user == "schmidle":
+    print("\033[0;33m")
+    for i in range(11):
+        for digit in x:
+            digit = int(digit)
+            print(numbers_art[digit][i], end="")
+        print()
