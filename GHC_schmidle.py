@@ -16,6 +16,7 @@ elif user == "schmidle" or user == "albissre":
     target_location = "Hellbühl"
     walking_time = timedelta(minutes=5)
 target = timedelta(hours=8)
+lunch_time = timedelta(minutes=30)
 
 
 # sTylyling
@@ -63,6 +64,7 @@ print(f"Du hast \033[32m{differenz}\033[0m gearbeitet")
 if (t1-t2<timedelta(minutes=30)):
     t1 = t2+timedelta(minutes=30)
 end_time = t1 + target - differenz
+end_time = zeiten[-1] + target + lunch_time
 print(f"Du musst bis \033[31m{end_time.time()}\033[0m arbeiten")
 
 r = requests.get(f"https://transport.opendata.ch/v1/connections?from=Buchrain&to=Hellbühl&time={(end_time + walking_time).strftime('%H:%M')}&limit=4", verify=False)
