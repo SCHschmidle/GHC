@@ -73,12 +73,15 @@ elif decision == '2' and easyocr is not None:
     text = reader.readtext(path, detail=0)
     text = " ".join(text)
     text = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', text)
-    print(text)
+    print("Gefundener Text:", text)
     zeiten = re.findall(r'\d{1,2}:\d{2}', text)
     if len(zeiten) < 3:
         print("Nicht genügend Zeiten im Bild gefunden. Bitte stelle sicher, dass das Bild drei Zeiten enthält.")
         exit()
     # Annahme: OCR gibt Zeiten in umgekehrter Reihenfolge zurück
+    for zeit in zeiten:
+        zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start after lunch
+        i += 1
     zeiten = zeiten[::-1]
 else:
     print("Ungültige Eingabe. Bitte starte das Programm neu und gib '1' oder '2' ein.")
