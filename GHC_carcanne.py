@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings("ignore")
 import re
 from datetime import datetime, timedelta
 import requests
