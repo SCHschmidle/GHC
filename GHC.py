@@ -23,13 +23,16 @@ except Exception:
 if user == "carcane" or user == "carcanne":
     target_location = "Rotkreuz"
     walking_time = timedelta(minutes=7)
+    minus_time = timedelta(minutes=20)
 elif user == "schmidle" or user == "albissre":
     target_location = "Hellbühl"
     walking_time = timedelta(minutes=5)
+    minus_time = timedelta(minutes=20)
 else:
     # Default
     target_location = "Rotkreuz"
     walking_time = timedelta(minutes=7)
+    minus_time = timedelta(minutes=20)
 target = timedelta(hours=8)
 pause = timedelta()
 lunch_time = timedelta(minutes=30)
@@ -105,7 +108,7 @@ print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
 
 # Verbindungen abfragen
 r = requests.get(
-    f"https://transport.opendata.ch/v1/connections?from=Buchrain&to={target_location}&time={(end_time + walking_time).strftime('%H:%M')}&limit=4",
+    f"https://transport.opendata.ch/v1/connections?from=Buchrain&to={target_location}&time={(end_time + walking_time - minus_time).strftime('%H:%M')}&limit=6",
     verify=False
 )
 data = r.json()
