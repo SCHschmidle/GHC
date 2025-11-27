@@ -1,12 +1,12 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo Suche nach Dateien: GHC_*.py
+echo Suche nach Dateien: GHC*.py
 echo.
 
 :: Liste aller passenden Dateien einlesen
 set count=0
-for %%f in (GHC_*.py) do (
+for %%f in (GHC*.py) do (
     set /a count+=1
     set "file[!count!]=%%f"
     echo !count!: %%f
