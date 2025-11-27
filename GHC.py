@@ -30,6 +30,11 @@ else:
     # Default
     target_location = "Rotkreuz"
     walking_time = timedelta(minutes=7)
+target = timedelta(hours=8)
+pause = timedelta()
+lunch_time = timedelta(minutes=30)
+i = 0
+
 
 # Styling
 ascii_art = r"""                                                               
@@ -59,12 +64,9 @@ if decision == '1':
     text = input("Gib mir deine TimeTool Zeiten: ")
     print()
     zeiten = re.findall(r'\d{1,2}:\d{2}', text)
-    if len(zeiten) < 3:
-        print("Nicht genügend Zeiten gefunden. Bitte gib mindestens drei Zeiten im Format HH:MM ein.")
-        exit()
-    zeit1 = zeiten[0]
-    zeit2 = zeiten[1]
-    zeit3 = zeiten[2]
+    for zeit in zeiten:
+        zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start after lunch
+        i += 1
 elif decision == '2' and easyocr is not None:
     path = input("Gib den Pfad zum Bild ein: ")
     reader = easyocr.Reader(["de"])
@@ -80,23 +82,25 @@ elif decision == '2' and easyocr is not None:
     zeit1 = zeiten[2]
     zeit2 = zeiten[1]
     zeit3 = zeiten[0]
+    zeiten = [zeit1, zeit2, zeit3]
 else:
     print("Ungültige Eingabe. Bitte starte das Programm neu und gib '1' oder '2' ein.")
     exit()
 
 # In datetime-Objekte konvertieren
-t1 = datetime.strptime(zeit1, "%H:%M") # Start after lunch
-t2 = datetime.strptime(zeit2, "%H:%M") # End before lunch
-t3 = datetime.strptime(zeit3, "%H:%M") # Start morning
-target = timedelta(hours=8)
+
 
 # Differenz berechnen
-differenz = t2 - t3
-print(f"Du hast \033[32m{differenz}\033[0m gearbeitet")
+i=2
+# Lunch time berechnen
+for j in range(0,int((len(zeiten)-1)/2)):
+    pause = pause + zeiten[-1 * (i+1)]-zeiten[-1 *i]
+    i = i+2
 
-if (t1-t2 < timedelta(minutes=30)):
-    t1 = t2 + timedelta(minutes=30)
-end_time = t1 + target - differenz
+if pause > lunch_time:
+    lunch_time = pause
+
+end_time = zeiten[-1] + target + lunch_time
 print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
 
 # Verbindungen abfragen
