@@ -16,6 +16,7 @@ elif user == "schmidle" or user == "albissre":
     target_location = "Hellbühl"
     walking_time = timedelta(minutes=5)
 target = timedelta(hours=8)
+pause = timedelta()
 lunch_time = timedelta(minutes=30)
 
 
@@ -42,28 +43,23 @@ print()
 # Regex ohne \b, nur nach Muster HH:MM suchen
 zeiten = re.findall(r'\d{1,2}:\d{2}', text)
 
-#print(zeiten)
-# Zwei Zeiten als strings
-zeit1 = zeiten[0]
-zeit2 = zeiten[1]
-zeit3 = zeiten[2]
-
 # In datetime-Objekte konvertieren
 for zeit in zeiten:
     zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start after lunch
     i += 1
 
-t1 = datetime.strptime(zeit1, "%H:%M") # Start after lunch
-t2 = datetime.strptime(zeit2, "%H:%M") # End before lunch
-t3 = datetime.strptime(zeit3, "%H:%M") # Start morning
+i=2
+# Lunch time berechnen
+for j in range(0,int((len(zeiten)-1)/2)):
+    pause = pause + zeiten[-1 * (i+1)]-zeiten[-1 *i]
+    i = i+2
+
+if pause > lunch_time:
+    lunch_time = pause
 
 # Differenz berechnen
-differenz = t2 - t3
-print(f"Du hast \033[32m{differenz}\033[0m gearbeitet")
+print(f"Du hast \033[32m{pause}\033[0m gearbeitet")
 
-if (t1-t2<timedelta(minutes=30)):
-    t1 = t2+timedelta(minutes=30)
-end_time = t1 + target - differenz
 end_time = zeiten[-1] + target + lunch_time
 print(f"Du musst bis \033[31m{end_time.time()}\033[0m arbeiten")
 
