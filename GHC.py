@@ -79,10 +79,7 @@ elif decision == '2' and easyocr is not None:
         print("Nicht genügend Zeiten im Bild gefunden. Bitte stelle sicher, dass das Bild drei Zeiten enthält.")
         exit()
     # Annahme: OCR gibt Zeiten in umgekehrter Reihenfolge zurück
-    zeit1 = zeiten[2]
-    zeit2 = zeiten[1]
-    zeit3 = zeiten[0]
-    zeiten = [zeit1, zeit2, zeit3]
+    zeiten = zeiten[::-1]
 else:
     print("Ungültige Eingabe. Bitte starte das Programm neu und gib '1' oder '2' ein.")
     exit()
