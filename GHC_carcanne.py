@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import easyocr
 
 
 # sTylyling
@@ -26,24 +27,41 @@ print("-------------------------------------------------------------------------
 print("Text oder OCR")
 decision = input("Gib '1' für Text oder '2' für OCR ein: ")
 print()
-if decision == 1:
+if decision == '1':
     text = input("Gib mir deine TimeTool Zeiten: ")
     print()
 
-elif decision == 2:
-    import easyocr
-    reader = easyocr.Reader(["de"])
-    result = reader.readtext("bild.png", detail=0)
-    print(result)
-    
-# Regex ohne \b, nur nach Muster HH:MM suchen
-zeiten = re.findall(r'\d{1,2}:\d{2}', text)
+    zeiten = re.findall(r'\d{1,2}:\d{2}', text)
 
-#print(zeiten)
-# Zwei Zeiten als strings
-zeit1 = zeiten[0]
-zeit2 = zeiten[1]
-zeit3 = zeiten[2]
+    #print(zeiten)
+    # Zwei Zeiten als strings
+    zeit1 = zeiten[0]
+    zeit2 = zeiten[1]
+    zeit3 = zeiten[2]
+
+elif decision == '2':
+    path = input("Gib den Pfad zum Bild ein: ")
+    reader = easyocr.Reader(["de"])
+    text = reader.readtext(path, detail=0)
+    text = " ".join(text)
+    text = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', text)
+    print(text)
+
+    zeiten = re.findall(r'\d{1,2}:\d{2}', text)
+
+    #print(zeiten)
+    # Zwei Zeiten als strings
+    zeit1 = zeiten[2]
+    zeit2 = zeiten[1]
+    zeit3 = zeiten[0]
+
+
+else:
+    print("Ungültige Eingabe. Bitte starte das Programm neu und gib '1' oder '2' ein.")
+    exit()
+
+# Regex ohne \b, nur nach Muster HH:MM suchen
+
 
 # In datetime-Objekte konvertieren
 t1 = datetime.strptime(zeit1, "%H:%M") # Start after lunch
