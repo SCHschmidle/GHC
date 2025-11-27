@@ -7,13 +7,15 @@ import os
 urllib3.disable_warnings()
 
 # Variables
+i = 0
 user = os.getlogin()
 if user == "carcane":
-    target_location = "Rotkreuz" # hellbühl
-    walking_time = timedelta(minutes=7) # 5
+    target_location = "Rotkreuz"
+    walking_time = timedelta(minutes=7)
 elif user == "schmidle" or user == "albissre":
-    target_location = "Hellbühl" # rotkreuz
-    walking_time = timedelta(minutes=5) # 7
+    target_location = "Hellbühl"
+    walking_time = timedelta(minutes=5)
+target = timedelta(hours=8)
 
 
 # sTylyling
@@ -46,10 +48,13 @@ zeit2 = zeiten[1]
 zeit3 = zeiten[2]
 
 # In datetime-Objekte konvertieren
+for zeit in zeiten:
+    zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start after lunch
+    i += 1
+
 t1 = datetime.strptime(zeit1, "%H:%M") # Start after lunch
 t2 = datetime.strptime(zeit2, "%H:%M") # End before lunch
 t3 = datetime.strptime(zeit3, "%H:%M") # Start morning
-target = timedelta(hours=8)
 
 # Differenz berechnen
 differenz = t2 - t3
