@@ -23,9 +23,19 @@ print(r"""
 
 print("------------------------------------------------------------------------------------------------------------------ \n \n")
 
-text = input("Gib mir deine TimeTool Zeiten: ")
+print("Text oder OCR")
+decision = input("Gib '1' für Text oder '2' für OCR ein: ")
 print()
+if decision == 1:
+    text = input("Gib mir deine TimeTool Zeiten: ")
+    print()
 
+elif decision == 2:
+    import easyocr
+    reader = easyocr.Reader(["de"])
+    result = reader.readtext("bild.png", detail=0)
+    print(result)
+    
 # Regex ohne \b, nur nach Muster HH:MM suchen
 zeiten = re.findall(r'\d{1,2}:\d{2}', text)
 
