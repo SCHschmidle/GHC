@@ -5,11 +5,8 @@ from datetime import datetime, timedelta
 import requests
 import urllib3
 import os
+from GHC_OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
 
-try:
-    import easyocr
-except ImportError:
-    easyocr = None
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -56,49 +53,42 @@ print("\033[0;94m" + ascii_art + "\033[0m")
 print("------------------------------------------------------------------------------------------------------------------ \n \n")
 
 # Auswahl: Text oder OCR
-if easyocr is not None:
-    print("Text oder OCR")
-    decision = input("Gib '1' für Text oder '2' für OCR ein: ")
-    print()
-else:
-    decision = '1'
+print("Text oder OCR")
+decision = input("Gib '1' für Text oder '2' für OCR ein: ")
+print()
+
 
 if decision == '1':
     text = input("Gib mir deine TimeTool Zeiten: ")
     print()
     zeiten = re.findall(r'\d{1,2}:\d{2}', text)
     for zeit in zeiten:
-        zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start after lunch
+        zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start nach lunch
         i += 1
-elif decision == '2' and easyocr is not None:
-    path = input("Gib den Pfad zum Bild ein: ")
-    reader = easyocr.Reader(["de"])
-    text = reader.readtext(path, detail=0)
-    text = " ".join(text)
-    text = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', text)
-    print("Gefundener Text:", text)
-    zeiten = re.findall(r'\d{1,2}:\d{2}', text)
+elif decision == '2':
+    save_clipboard_image()
+    text, zeiten = OCR_clipboard_image()
+    delete_clipboard_image()
+
     if len(zeiten) < 3:
         print("Nicht genügend Zeiten im Bild gefunden. Bitte stelle sicher, dass das Bild drei Zeiten enthält.")
         exit()
     # Annahme: OCR gibt Zeiten in umgekehrter Reihenfolge zurück
-    for zeit in zeiten:
-        zeiten[i] = datetime.strptime(zeit, "%H:%M") # Start after lunch
-        i += 1
-    zeiten = zeiten[::-1]
+    #zeiten = zeiten[::-1]  
+    zeiten = [datetime.strptime(zeit, "%H:%M") for zeit in zeiten]  
+    
+    
 else:
     print("Ungültige Eingabe. Bitte starte das Programm neu und gib '1' oder '2' ein.")
     exit()
-
-# In datetime-Objekte konvertieren
 
 
 # Differenz berechnen
 i=2
 # Lunch time berechnen
-for j in range(0,int((len(zeiten)-1)/2)):
-    pause = pause + zeiten[-1 * (i+1)]-zeiten[-1 *i]
-    i = i+2
+pause = timedelta()
+for j in range(1, len(zeiten)-1, 2):
+    pause += zeiten[j+1] - zeiten[j]
 
 if pause > lunch_time:
     lunch_time = pause

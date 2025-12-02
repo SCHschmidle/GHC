@@ -1,0 +1,4 @@
+Pillow
+requests
+urllib3
+easyocr
