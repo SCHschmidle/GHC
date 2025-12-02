@@ -67,6 +67,9 @@ if decision == '1':
         i += 1
 elif decision == '2':
     save_clipboard_image()
+    if return_value := save_clipboard_image() == False:
+        print("Keine Bilddaten in der Zwischenablage gefunden. Bitte stelle sicher, dass du einen Screenshot in die Zwischenablage kopiert hast.")
+        exit()
     text, zeiten = OCR_clipboard_image()
     delete_clipboard_image()
 
