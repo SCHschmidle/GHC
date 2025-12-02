@@ -70,11 +70,7 @@ elif decision == '2':
     text, zeiten = OCR_clipboard_image()
     delete_clipboard_image()
 
-    if len(zeiten) < 3:
-        print("Nicht genügend Zeiten im Bild gefunden. Bitte stelle sicher, dass das Bild drei Zeiten enthält.")
-        exit()
-    # Annahme: OCR gibt Zeiten in umgekehrter Reihenfolge zurück
-    #zeiten = zeiten[::-1]  
+    
     zeiten = [datetime.strptime(zeit, "%H:%M") for zeit in zeiten]  
     
     
