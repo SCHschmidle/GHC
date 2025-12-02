@@ -87,7 +87,7 @@ i=2
 # Lunch time berechnen
 pause = timedelta()
 for j in range(1, len(zeiten)-1, 2):
-    pause += zeiten[j+1] - zeiten[j]
+    pause += zeiten[j-1] - zeiten[j]
 
 if pause > lunch_time:
     lunch_time = pause
