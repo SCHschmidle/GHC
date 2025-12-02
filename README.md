@@ -25,8 +25,8 @@ Dieses CLI-Tool berechnet deine effektive Arbeitszeit und zeigt dir basierend au
 ## 🔧 Installation
 
 ```bash
-py -m pip install requests
-python GHC_Version.py
+pip install -r requirements.txt
+python GHC.py
 ```
 ## 🤝 Contributors
 [carnevio (Nevio Carcanigiu)](https://github.com/carnevio)
