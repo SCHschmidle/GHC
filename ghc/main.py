@@ -28,7 +28,7 @@ def get_times(decision):
         if not save_clipboard_image():
             print("Keine Bilddaten in der Zwischenablage gefunden. Bitte stelle sicher, dass du einen Screenshot in die Zwischenablage kopiert hast.")
             exit()
-        text, zeiten = OCR_clipboard_image()
+        text, zeiten = OCR_clipboard_image(path="clipboard_screenshot.png")
         delete_clipboard_image()
     
         zeiten = [datetime.strptime(zeit, "%H:%M") for zeit in zeiten] 
