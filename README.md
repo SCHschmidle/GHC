@@ -42,6 +42,11 @@ pip install -r requirements.txt
 python -m ghc.main
 ```
 
+oder für die lightversion
+```bash
+python -m ghc.main_light
+```
+
 ---
 
 
