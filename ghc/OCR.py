@@ -1,6 +1,6 @@
 from PIL import ImageGrab
 import os
-import easyocr
+from rapidocr_onnxruntime import RapidOCR
 import re
 
 path="clipboard_screenshot.png"
@@ -17,13 +17,12 @@ def save_clipboard_image():
     img.save(path)
     return True
 
-def OCR_clipboard_image():
-    reader = easyocr.Reader(["de"],gpu=False)
-    text = reader.readtext(path, detail=0)
-    text = " ".join(text)
+def OCR_clipboard_image(path):
+    ocr = RapidOCR()
+    result, elapse = ocr(path)
+    text = ' '.join([line[1] for line in result])
     text = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', text)
     zeiten = re.findall(r'\d{1,2}:\d{2}', text)
-
     return text, zeiten
 
 def delete_clipboard_image():
