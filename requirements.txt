@@ -3,3 +3,4 @@ requests
 urllib3
 rapidocr-onnxruntime
 pandas
+beautifulsoup4>=4.12.0
