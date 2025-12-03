@@ -6,7 +6,7 @@ echo.
 
 :: Liste aller passenden Dateien einlesen
 set count=0
-for %%f in (GHC*.py) do (
+for %%f in (ghc/*.py) do (
     set /a count+=1
     set "file[!count!]=%%f"
     echo !count!: %%f
@@ -34,6 +34,6 @@ echo.
 echo Starte Datei: %selected%
 echo.
 cls
-python "%selected%"
+python "ghc/%selected%"
 
 pause

@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 import requests
 import urllib3
 import os
-from ghc.OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
+from OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
+from main import *
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -53,7 +54,7 @@ print("\033[0;94m" + ascii_art + "\033[0m")
 print("------------------------------------------------------------------------------------------------------------------ \n \n")
 
 # Auswahl: Text oder OCR
-
+zeiten = get_times(2)
 save_clipboard_image()
 if return_value := save_clipboard_image() == False:
     print("Keine Bilddaten in der Zwischenablage gefunden. Bitte stelle sicher, dass du einen Screenshot in die Zwischenablage kopiert hast.")
