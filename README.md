@@ -39,12 +39,12 @@ Dieses CLI-Tool berechnet deine effektive Arbeitszeit und zeigt dir basierend au
 
 ```bash
 pip install -r requirements.txt
-python -m ghc.main
+python ghc/main.py
 ```
 
 oder für die lightversion
 ```bash
-python -m ghc.main_light
+python ghc/main_light.py
 ```
 
 ---
