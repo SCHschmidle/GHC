@@ -227,9 +227,7 @@ def new_csv_entry():
         writer = csv.writer(f)
         writer.writerow([user, username, target_location, walking_time, minus_time])
     
-
-def main():
-    # User-spezifische Einstellungen
+def set_data():
     user = None
     try:
         user = os.getlogin()
@@ -249,6 +247,12 @@ def main():
     minus_time = timedelta(minutes=int(pref.at[idx[0], 'minus_time']))
     target = timedelta(hours=8)
     lunch_time = timedelta(minutes=30)
+    return user, target_location, walking_time, minus_time, target, lunch_time
+
+def main():
+    # User-spezifische Einstellungen
+
+    user, target_location, walking_time, minus_time, target, lunch_time = set_data()
 
 
     # Styling
