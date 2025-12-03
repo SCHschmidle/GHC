@@ -7,7 +7,7 @@ import urllib3
 import os
 from OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
 import pandas as pd
-
+import csv
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -214,7 +214,16 @@ def print_ascii (user,end_time):
             print()
 
 def new_csv_entry():
-    pass
+    input("Benutzer nicht gefunden. Drücke Enter um einen neuen Eintrag zu erstellen...")
+    user = input("Gib deinen Namen ein: ")
+    username = input("Gib deinen Benutzernamen ein: ")
+    target_location = input("Gib deinen Zielort ein (z.B. Rotkreuz, Hellbühl): ")
+    walking_time = int(input("Gib deine Gehzeit zum Bahnhof in Minuten ein: "))
+    minus_time = int(input("Wie viel früher möchtest du maximal gehen?: "))
+    with open("preferences.csv", "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow([user, username, target_location, walking_time, minus_time])
+    
 
 def main():
     # User-spezifische Einstellungen
@@ -228,12 +237,12 @@ def main():
     pref = pd.read_csv('ghc/preferences.csv')
     idx = pref.index[pref['username'] == user]
     if idx.empty:
-        #ask for default
-        pass
-    else:
-        target_location = pref.at[idx[0], 'target_location']
-        walking_time = timedelta(minutes=int(pref.at[idx[0], 'walking_time']))
-        minus_time = timedelta(minutes=int(pref.at[idx[0], 'minus_time']))
+        new_csv_entry()
+        idx = pref.index[pref['username'] == user]
+
+    target_location = pref.at[idx[0], 'target_location']
+    walking_time = timedelta(minutes=int(pref.at[idx[0], 'walking_time']))
+    minus_time = timedelta(minutes=int(pref.at[idx[0], 'minus_time']))
     target = timedelta(hours=8)
     lunch_time = timedelta(minutes=30)
 
