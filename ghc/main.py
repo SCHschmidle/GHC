@@ -8,6 +8,8 @@ import os
 from OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
 from get_menus import get_menus
 
+import pandas as pd
+import csv
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -214,6 +216,18 @@ def print_ascii (user,end_time):
                 print(numbers_art[digit][i], end="")
             print()
 
+def new_csv_entry():
+    input("Benutzer nicht gefunden. Drücke Enter um einen neuen Eintrag zu erstellen...")
+    user = input("Gib deinen Namen ein: ")
+    username = input("Gib deinen Benutzernamen ein: ")
+    target_location = input("Gib deinen Zielort ein (z.B. Rotkreuz, Hellbühl): ")
+    walking_time = int(input("Gib deine Gehzeit zum Bahnhof in Minuten ein: "))
+    minus_time = int(input("Wie viel früher möchtest du maximal gehen?: "))
+    with open("preferences.csv", "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow([user, username, target_location, walking_time, minus_time])
+    
+
 def main():
     # User-spezifische Einstellungen
     user = None
@@ -222,21 +236,18 @@ def main():
     except Exception:
         user = None
 
-    if user == "carcane" or user == "carcanne":
-        target_location = "Rotkreuz"
-        walking_time = timedelta(minutes=7)
-        minus_time = timedelta(minutes=20)
-    elif user == "schmidle" or user == "albissre":
-        target_location = "Hellbühl"
-        walking_time = timedelta(minutes=5)
-        minus_time = timedelta(minutes=20)
-    else:
-        # Default
-        target_location = "Rotkreuz"
-        walking_time = timedelta(minutes=7)
-        minus_time = timedelta(minutes=20)
+
+    pref = pd.read_csv('ghc/preferences.csv')
+    idx = pref.index[pref['username'] == user]
+    if idx.empty:
+        new_csv_entry()
+        pref = pd.read_csv('ghc/preferences.csv')
+        idx = pref.index[pref['username'] == user]
+
+    target_location = pref.at[idx[0], 'target_location']
+    walking_time = timedelta(minutes=int(pref.at[idx[0], 'walking_time']))
+    minus_time = timedelta(minutes=int(pref.at[idx[0], 'minus_time']))
     target = timedelta(hours=8)
-    pause = timedelta()
     lunch_time = timedelta(minutes=30)
 
 
