@@ -39,7 +39,7 @@ def get_times(decision):
         exit()
 
 
-def print_end_times(zeiten,lunch_time,target):
+def get_end_times(zeiten,lunch_time,target):
     # Differenz berechnen
     i=2
     # Lunch time berechnen
@@ -262,7 +262,7 @@ def main():
 
 
     zeiten = get_times(decision)
-    end_time = print_end_times(zeiten,lunch_time,target)
+    end_time = get_end_times(zeiten,lunch_time,target)
 
     print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
 
