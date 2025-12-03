@@ -238,6 +238,7 @@ def main():
     idx = pref.index[pref['username'] == user]
     if idx.empty:
         new_csv_entry()
+        pref = pd.read_csv('ghc/preferences.csv')
         idx = pref.index[pref['username'] == user]
 
     target_location = pref.at[idx[0], 'target_location']
