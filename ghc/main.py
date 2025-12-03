@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import requests
 import urllib3
 import os
-from GHC_OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
+from ghc.OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
