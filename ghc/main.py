@@ -25,7 +25,7 @@ def get_times(decision):
         return zeiten
     elif decision == '2':
         save_clipboard_image()
-        if return_value := save_clipboard_image() == False:
+        if not save_clipboard_image():
             print("Keine Bilddaten in der Zwischenablage gefunden. Bitte stelle sicher, dass du einen Screenshot in die Zwischenablage kopiert hast.")
             exit()
         text, zeiten = OCR_clipboard_image()
