@@ -6,6 +6,7 @@ import requests
 import urllib3
 import os
 from OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
+from get_menus import get_menus
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -32,7 +33,8 @@ def get_times(decision):
         delete_clipboard_image()
     
         zeiten = [datetime.strptime(zeit, "%H:%M") for zeit in zeiten] 
-        return zeiten 
+        return zeiten
+    
 
     else:
         print("Ungültige Eingabe. Bitte starte das Programm neu und gib '1' oder '2' ein.")
@@ -256,19 +258,30 @@ def main():
 
     # Auswahl: Text oder OCR
     print("Text oder OCR")
-    decision = input("Gib '1' für Text oder '2' für OCR ein: ")
+    decision = input("Gib '1' für Text, '2' für OCR, '3' für Menüs ein: ")
     print()
 
+    if decision == '1' or decision == '2':
+        zeiten = get_times(decision)
+        end_time = get_end_times(zeiten,lunch_time,target)
 
-    zeiten = get_times(decision)
-    end_time = get_end_times(zeiten,lunch_time,target)
-
-    print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
+        print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
 
 
 
-    get_transport_data(target_location, end_time, walking_time, minus_time)
-    print_ascii(user, end_time)
+        get_transport_data(target_location, end_time, walking_time, minus_time)
+        print_ascii(user, end_time)
+
+    elif decision == '3':
+        print("Heutige Menüs im Personalrestaurant:")
+        print()
+        menus = get_menus()
+        for name, desc, sort in menus:
+            print("Menü Name:", name)
+            print("Beschreibung:", desc)
+            print("Type:", sort)
+            print("-" * 40)
+    
 
 if __name__ == "__main__":
     main()
