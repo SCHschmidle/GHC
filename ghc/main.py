@@ -220,7 +220,7 @@ def new_csv_entry():
     target_location = input("Gib deinen Zielort ein (z.B. Rotkreuz, Hellbühl): ")
     walking_time = int(input("Gib deine Gehzeit zum Bahnhof in Minuten ein: "))
     minus_time = int(input("Wie viel früher möchtest du maximal gehen?: "))
-    with open("preferences.csv", "a", newline="", encoding="utf-8") as f:
+    with open("ghc/preferences.csv", "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([user, username, target_location, walking_time, minus_time])
     
