@@ -7,28 +7,7 @@ from main import *
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # User-spezifische Einstellungen
-user = None
-try:
-    user = os.getlogin()
-except Exception:
-    user = None
-
-if user == "carcane" or user == "carcanne":
-    target_location = "Rotkreuz"
-    walking_time = timedelta(minutes=7)
-    minus_time = timedelta(minutes=20)
-elif user == "schmidle" or user == "albissre":
-    target_location = "Hellbühl"
-    walking_time = timedelta(minutes=5)
-    minus_time = timedelta(minutes=20)
-else:
-    # Default
-    target_location = "Rotkreuz"
-    walking_time = timedelta(minutes=7)
-    minus_time = timedelta(minutes=20)
-target = timedelta(hours=8)
-pause = timedelta()
-lunch_time = timedelta(minutes=30)
+user, target_location, walking_time, minus_time, target, lunch_time = set_data()
 i = 0
 
 
