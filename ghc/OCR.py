@@ -18,7 +18,7 @@ def save_clipboard_image():
     return True
 
 def OCR_clipboard_image():
-    reader = easyocr.Reader(["de"], gpu=False)
+    reader = easyocr.Reader(["de"],gpu=False)
     text = reader.readtext(path, detail=0)
     text = " ".join(text)
     text = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', text)
