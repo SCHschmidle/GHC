@@ -6,6 +6,7 @@ import requests
 import urllib3
 import os
 from OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
+import pandas as pd
 
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -212,6 +213,9 @@ def print_ascii (user,end_time):
                 print(numbers_art[digit][i], end="")
             print()
 
+def new_csv_entry():
+    pass
+
 def main():
     # User-spezifische Einstellungen
     user = None
@@ -220,21 +224,17 @@ def main():
     except Exception:
         user = None
 
-    if user == "carcane" or user == "carcanne":
-        target_location = "Rotkreuz"
-        walking_time = timedelta(minutes=7)
-        minus_time = timedelta(minutes=20)
-    elif user == "schmidle" or user == "albissre":
-        target_location = "Hellbühl"
-        walking_time = timedelta(minutes=5)
-        minus_time = timedelta(minutes=20)
+
+    pref = pd.read_csv('ghc/preferences.csv')
+    idx = pref.index[pref['username'] == user]
+    if idx.empty:
+        #ask for default
+        pass
     else:
-        # Default
-        target_location = "Rotkreuz"
-        walking_time = timedelta(minutes=7)
-        minus_time = timedelta(minutes=20)
+        target_location = pref.at[idx[0], 'target_location']
+        walking_time = timedelta(minutes=int(pref.at[idx[0], 'walking_time']))
+        minus_time = timedelta(minutes=int(pref.at[idx[0], 'minus_time']))
     target = timedelta(hours=8)
-    pause = timedelta()
     lunch_time = timedelta(minutes=30)
 
 
