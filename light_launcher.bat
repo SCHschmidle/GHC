@@ -1,7 +1,5 @@
 @echo off
 setlocal enabledelayedexpansion
-:loop:
 cls
-python "ghc/main.py"
+python "ghc/main_light.py"
 pause
-GOTO loop
