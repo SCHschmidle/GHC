@@ -71,7 +71,11 @@ def get_transport_data(target_location, end_time, walking_time, minus_time):
     print("Nächste Abfahrten ab Buchrain:")
     for verbindung in data.get("connections", []):
         abfahrt = datetime.fromisoformat(verbindung["from"]["departure"])
-        print(f"  {abfahrt.strftime('%H:%M')} Uhr")
+        
+        if verbindung["from"].get("delay") is not None and verbindung["from"].get("delay") > 3:
+            print(f"  {abfahrt.strftime('%H:%M')} Uhr (Verspätung: {verbindung['from']['delay']} Min.)")
+        else:
+            print(f"  {abfahrt.strftime('%H:%M')} Uhr")
 
 
 def print_ascii (user,end_time):
