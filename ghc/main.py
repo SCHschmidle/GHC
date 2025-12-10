@@ -297,6 +297,9 @@ def main():
             print("Type:", sort)
             print("-" * 40)
     
-
-if __name__ == "__main__":
-    main()
+try:
+    if __name__ == "__main__":
+        main()
+except Exception as e:
+    print("Ein Fehler ist aufgetreten:", str(e))
+    input("Drücke Enter um das Programm zu beenden...")
