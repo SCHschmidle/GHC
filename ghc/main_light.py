@@ -31,5 +31,9 @@ print("-------------------------------------------------------------------------
 zeiten = get_times('2')
 end_time = get_end_times(zeiten,lunch_time,target)
 print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
+working_to = end_time - datetime.now()
+working_datetime = datetime(2000, 1, 1) + working_to
+print(f"Du musst noch \033[31m{working_datetime.strftime('%H:%M')}\033[0m arbeiten bis Feierabend!")
+
 get_transport_data(target_location, end_time, walking_time, minus_time)
 print_ascii(user, end_time)
