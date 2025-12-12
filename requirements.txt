@@ -3,4 +3,7 @@ requests
 urllib3
 rapidocr-onnxruntime
 pandas
-beautifulsoup4>=4.12.0
+fastapi
+uvicorn
+jinja2
+beautifulsoup4
