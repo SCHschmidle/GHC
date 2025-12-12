@@ -5,4 +5,5 @@ env/
 dist/
 __pycache__/
 *.pyc
-*.csv
+preferences.csv
+.vscode

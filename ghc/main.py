@@ -71,7 +71,11 @@ def get_transport_data(target_location, end_time, walking_time, minus_time):
     print("Nächste Abfahrten ab Buchrain:")
     for verbindung in data.get("connections", []):
         abfahrt = datetime.fromisoformat(verbindung["from"]["departure"])
-        print(f"  {abfahrt.strftime('%H:%M')} Uhr")
+        
+        if verbindung["from"].get("delay") is not None and verbindung["from"].get("delay") > 3:
+            print(f"  {abfahrt.strftime('%H:%M')} Uhr (Verspätung: {verbindung['from']['delay']} Min.)")
+        else:
+            print(f"  {abfahrt.strftime('%H:%M')} Uhr")
 
 
 def print_ascii (user,end_time):
@@ -223,13 +227,11 @@ def new_csv_entry():
     target_location = input("Gib deinen Zielort ein (z.B. Rotkreuz, Hellbühl): ")
     walking_time = int(input("Gib deine Gehzeit zum Bahnhof in Minuten ein: "))
     minus_time = int(input("Wie viel früher möchtest du maximal gehen?: "))
-    with open("preferences.csv", "a", newline="", encoding="utf-8") as f:
+    with open("ghc/preferences.csv", "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([user, username, target_location, walking_time, minus_time])
     
-
-def main():
-    # User-spezifische Einstellungen
+def set_data():
     user = None
     try:
         user = os.getlogin()
@@ -249,6 +251,12 @@ def main():
     minus_time = timedelta(minutes=int(pref.at[idx[0], 'minus_time']))
     target = timedelta(hours=8)
     lunch_time = timedelta(minutes=30)
+    return user, target_location, walking_time, minus_time, target, lunch_time
+
+def main():
+    # User-spezifische Einstellungen
+
+    user, target_location, walking_time, minus_time, target, lunch_time = set_data()
 
 
     # Styling
@@ -277,6 +285,9 @@ def main():
         end_time = get_end_times(zeiten,lunch_time,target)
 
         print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
+        working_to = end_time - datetime.now()
+        working_datetime = datetime(2000, 1, 1) + working_to
+        print(f"Du musst noch \033[31m{working_datetime.strftime('%H:%M')}\033[0m arbeiten bis Feierabend!")
 
 
 
@@ -293,6 +304,9 @@ def main():
             print("Type:", sort)
             print("-" * 40)
     
-
-if __name__ == "__main__":
-    main()
+try:
+    if __name__ == "__main__":
+        main()
+except Exception as e:
+    print("Ein Fehler ist aufgetreten:", str(e))
+    input("Drücke Enter um das Programm zu beenden...")

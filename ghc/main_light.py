@@ -7,28 +7,7 @@ from main import *
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # User-spezifische Einstellungen
-user = None
-try:
-    user = os.getlogin()
-except Exception:
-    user = None
-
-if user == "carcane" or user == "carcanne":
-    target_location = "Rotkreuz"
-    walking_time = timedelta(minutes=7)
-    minus_time = timedelta(minutes=20)
-elif user == "schmidle" or user == "albissre":
-    target_location = "Hellbühl"
-    walking_time = timedelta(minutes=5)
-    minus_time = timedelta(minutes=20)
-else:
-    # Default
-    target_location = "Rotkreuz"
-    walking_time = timedelta(minutes=7)
-    minus_time = timedelta(minutes=20)
-target = timedelta(hours=8)
-pause = timedelta()
-lunch_time = timedelta(minutes=30)
+user, target_location, walking_time, minus_time, target, lunch_time = set_data()
 i = 0
 
 
@@ -52,5 +31,9 @@ print("-------------------------------------------------------------------------
 zeiten = get_times('2')
 end_time = get_end_times(zeiten,lunch_time,target)
 print(f"Du musst bis \033[31m{end_time.strftime('%H:%M')}\033[0m arbeiten")
+working_to = end_time - datetime.now()
+working_datetime = datetime(2000, 1, 1) + working_to
+print(f"Du musst noch \033[31m{working_datetime.strftime('%H:%M')}\033[0m arbeiten bis Feierabend!")
+
 get_transport_data(target_location, end_time, walking_time, minus_time)
 print_ascii(user, end_time)

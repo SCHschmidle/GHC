@@ -15,6 +15,8 @@ Dieses CLI-Tool berechnet deine effektive Arbeitszeit und zeigt dir basierend au
 - **ASCII-Art-Ausgabe**: Banner und Arbeitsendzeit als stilisierte ASCII-Ziffern für mehr Übersicht und ein bisschen Fun.
 - **Skriptvarianten für unterschiedliche Nutzer**: Mittels Auswahl können verschiedene Arbeitskontexte/Personalisierungen genutzt werden.
 - **Batch-Starter**: Über `launch.bat` komfortabel unter Windows bedienbar: Es listet alle GHC-Skripte und startet auf Auswahl das gewünschte.
+- **Menü-Abfrage (get_menus)**: Interaktives Auswahlmenü (get_menus) zum Starten und Konfigurieren der verfügbaren Skripte, Profile und Modi.
+
 
 ---
 
