@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Meine FastAPI Webapp</title>
+    <title>{{ name }}</title>
 </head>
 <body>
-    <h1>Hallo {{ name }}</h1>
-    <p>Test der FastAPI Integration</p>
+    <h1>{{ name }} - OCR Tool</h1>
+    
+    <form method="post" action="/ocr">
+        <button type="submit">OCR aus Zwischenablage starten</button>
+    </form>
+    
+    {% if ocr_result %}
+    <div>
+        <h2>OCR Ergebnis:</h2>
+        <pre>{{ ocr_result }}</pre>
+    </div>
+    {% endif %}
 </body>
 </html>
