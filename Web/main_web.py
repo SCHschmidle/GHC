@@ -23,11 +23,15 @@ async def home(request: Request):
 async def process_ocr(request: Request):
     try:
         image_path = save_clipboard_image()
-
-        if not image_path or image_path is False:
+        print(f"Debug: image_path = {image_path}, type = {type(image_path)}")  # Logging zur Konsole
+        
+        if image_path is True:
+            # Workaround: Annahme, dass das Bild in "clipboard_image.png" gespeichert wurde
+            image_path = "clipboard_image.png"
+        elif not image_path or not isinstance(image_path, str):
             return templates.TemplateResponse(
                 "index.html",
-                {"request": request, "name": "GHC", "ocr_result": "Fehler: Kein Bild in der Zwischenablage gefunden"}
+                {"request": request, "name": "GHC", "ocr_result": f"Fehler: Kein gültiges Bild in der Zwischenablage gefunden. Debug: {image_path} (Typ: {type(image_path)})"}
             )
         
         
