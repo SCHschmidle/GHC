@@ -12,7 +12,7 @@ def save_clipboard_image():
         return False
 
     img.save(path)
-    return path  # Gib den lokalen Pfad zurück (relativ zu Web/)
+    return path  
 
 def OCR_clipboard_image(image_path):
     ocr = RapidOCR()

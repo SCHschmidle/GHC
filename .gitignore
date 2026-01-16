@@ -7,3 +7,4 @@ __pycache__/
 *.pyc
 preferences.csv
 .vscode
+.DS_Store
