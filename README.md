@@ -4,7 +4,7 @@ Dieses CLI-Tool berechnet deine effektive Arbeitszeit und zeigt dir basierend au
 
 ---
 
-## 🚀 Features (erweitert)
+## 🚀 Features
 
 - **Manuelle Zeiteingabe**: Analyse von TimeTool-Zeiten (HH:MM-Format) via CLI-Eingabe.
 - **Automatische Zeiterfassung via OCR**: Du kannst einen Screenshot deiner Arbeitszeiten aus der Zwischenablage direkt auslesen lassen!
