@@ -1,6 +1,6 @@
 from PIL import ImageGrab
 import os
-from rapidocr_onnxruntime import RapidOCR
+import pytesseract
 import re
 
 path="clipboard_screenshot.png"
@@ -18,9 +18,7 @@ def save_clipboard_image():
     return True
 
 def OCR_clipboard_image(path):
-    ocr = RapidOCR()
-    result, elapse = ocr(path)
-    text = ' '.join([line[1] for line in result])
+    text = pytesseract.image_to_string(path)
     text = re.sub(r'(\d{1,2})\.(\d{2})', r'\1:\2', text)
     zeiten = re.findall(r'\d{1,2}:\d{2}', text)
     return text, zeiten
