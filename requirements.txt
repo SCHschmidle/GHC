@@ -1,7 +1,7 @@
 Pillow
 requests
 urllib3
-rapidocr-onnxruntime
+easyocr
 pandas
 fastapi
 uvicorn

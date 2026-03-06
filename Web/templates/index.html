@@ -12,8 +12,13 @@
     
     {% if ocr_result %}
     <div>
-        <h2>OCR Ergebnis:</h2>
+        <h2>OCR Ergebnis (gefundene Zeiten):</h2>
         <pre>{{ ocr_result }}</pre>
+
+        {% if full_ocr_text %}
+        <h2>Vollständiger OCR Text:</h2>
+        <pre>{{ full_ocr_text }}</pre>
+        {% endif %}
 
         <h2>Berechnete Endzeit:</h2>
         <p>{{ end_time }}</p>

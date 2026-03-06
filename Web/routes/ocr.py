@@ -25,17 +25,23 @@ async def process_ocr(request: Request):
                 {"request": request, "name": "GHC", "ocr_result": f"Fehler: Kein gültiges Bild in der Zwischenablage gefunden. Debug: {image_path} (Typ: {type(image_path)})"}
             )
 
-        ocr_text = OCR_clipboard_image(image_path)
+        ocr_full_text, ocr_times = OCR_clipboard_image(image_path)
         delete_clipboard_image(image_path)
 
-        ocr_text = [datetime.strptime(zeit, "%H:%M") for zeit in ocr_text]
+        times = [datetime.strptime(zeit, "%H:%M") for zeit in ocr_times]
 
-        end_time = get_end_times(ocr_text, lunch_time, target)
+        end_time = get_end_times(times, lunch_time, target)
         print(f"Debug: end_time = {end_time}, lunch_time = {lunch_time}, target = {target}")
 
         return templates.TemplateResponse(
             "index.html",
-            {"request": request, "name": "GHC", "ocr_result": ocr_text, "end_time": end_time}
+            {
+                "request": request,
+                "name": "GHC",
+                "ocr_result": ", ".join(ocr_times),
+                "end_time": end_time,
+                "full_ocr_text": ocr_full_text
+            }
         )
 
     except Exception as e:

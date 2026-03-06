@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 import requests
 import urllib3
 import os
-from .OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
-from .get_menus import get_menus
+from ghc.OCR import save_clipboard_image, OCR_clipboard_image, delete_clipboard_image
+from ghc.get_menus import get_menus
 
 import pandas as pd
 import csv
