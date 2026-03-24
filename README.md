@@ -54,7 +54,7 @@ python ghc/main_light.py
 
 ## 🤝 Contributors
 
-[carnevio (Nevio Carcanigiu)](https://github.com/carnevio)  
+[carnevio (Nevio Carcangiu)](https://github.com/carnevio)  
 [SCHschmidle](https://github.com/SCHschmidle)
 
 ---
